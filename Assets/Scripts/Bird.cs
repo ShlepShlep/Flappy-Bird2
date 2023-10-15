@@ -1,19 +1,22 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Bird : MonoBehaviour
 {
     public int score;
+    public float speed;
     public float jumpSpeed;
     public float rotateScale;
     public TMP_Text scoreText;
+    public GameObject endScreen;
     Rigidbody2D rb;
+
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Pipe.speed = speed;
     }
 
     void Update()
@@ -31,10 +34,20 @@ public class Bird : MonoBehaviour
         Die();
     }
 
+
     void Die()
     {
-        var currentScene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentScene);
+        Pipe.speed = 0;
+        jumpSpeed = 0;
+        Invoke("ShowMenu",1f); // calls function after 1 second
+        //var currentScene = SceneManager.GetActiveScene().name;
+        //SceneManager.LoadScene(currentScene);
+    }
+
+    void ShowMenu()
+    {
+        endScreen.SetActive(true);
+        scoreText.gameObject.SetActive(false); // or scoreText.enabled = false; or scoreText.text = "";
     }
 
     void OnTriggerEnter2D(Collider2D other)
