@@ -9,6 +9,11 @@ public class Bird : MonoBehaviour
     public float rotateScale;
     public TMP_Text scoreText;
     public GameObject endScreen;
+    public GameObject background0;
+    public GameObject background1;
+    public GameObject bird0;
+    public GameObject bird1;
+    public GameObject bird2;
     Rigidbody2D rb;
 
 
@@ -17,6 +22,40 @@ public class Bird : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         Pipe.speed = speed;
+
+        int randomWall = Random.Range(0, 2);
+        int randomBird = Random.Range(0, 3);
+        print("Wall "+ randomWall);
+        print("Bird " + randomBird);
+
+        if (randomWall == 0)
+        {
+            background0.SetActive(true);
+            background1.SetActive(false);
+        }
+        if (randomWall == 1)
+        {
+            background0.SetActive(false);
+            background1.SetActive(true);
+        }
+        if(randomBird == 0)
+        {
+            bird0.SetActive(true);
+            bird1.SetActive(false);
+            bird2.SetActive(false);
+        }
+        if (randomBird == 1)
+        {
+            bird0.SetActive(false);
+            bird1.SetActive(true);
+            bird2.SetActive(false);
+        }
+        if (randomBird == 2)
+        {
+            bird0.SetActive(false);
+            bird1.SetActive(false);
+            bird2.SetActive(true);
+        }
     }
 
     void Update()
