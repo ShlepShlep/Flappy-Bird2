@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,7 +7,9 @@ public class Bird : MonoBehaviour
     public int score;
     public float jumpSpeed;
     public float rotateScale;
+    public TMP_Text scoreText;
     Rigidbody2D rb;
+
 
     void Start()
     {
@@ -37,5 +40,6 @@ public class Bird : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         score++;
+        scoreText.text = score.ToString();
     }
 }
