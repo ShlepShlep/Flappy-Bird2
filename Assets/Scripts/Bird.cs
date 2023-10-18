@@ -23,10 +23,50 @@ public class Bird : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         Pipe.speed = speed;
 
-        int randomWall = Random.Range(0, 2);
+
+        ChangeWallpaper();
+        ChooseSkin();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            rb.velocity = Vector2.up * jumpSpeed;
+        }
+
+        transform.eulerAngles = new Vector3(0, 0, rb.velocity.y * rotateScale);
+    }
+
+    void ChooseSkin()
+    {
         int randomBird = Random.Range(0, 3);
-        print("Wall "+ randomWall);
         print("Bird " + randomBird);
+
+        if (randomBird == 0)
+        {
+            bird0.SetActive(true);
+            bird1.SetActive(false);
+            bird2.SetActive(false);
+        }
+        else if (randomBird == 1)
+        {
+            bird0.SetActive(false);
+            bird1.SetActive(true);
+            bird2.SetActive(false);
+        }
+        else
+        {
+            bird0.SetActive(false);
+            bird1.SetActive(false);
+            bird2.SetActive(true);
+        }
+    }
+
+    void ChangeWallpaper()
+    {
+        int randomWall = Random.Range(0, 2);
+        print("Wall " + randomWall);
 
         if (randomWall == 0)
         {
@@ -38,34 +78,6 @@ public class Bird : MonoBehaviour
             background0.SetActive(false);
             background1.SetActive(true);
         }
-        if(randomBird == 0)
-        {
-            bird0.SetActive(true);
-            bird1.SetActive(false);
-            bird2.SetActive(false);
-        }
-        if (randomBird == 1)
-        {
-            bird0.SetActive(false);
-            bird1.SetActive(true);
-            bird2.SetActive(false);
-        }
-        if (randomBird == 2)
-        {
-            bird0.SetActive(false);
-            bird1.SetActive(false);
-            bird2.SetActive(true);
-        }
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            rb.velocity = Vector2.up * jumpSpeed;
-        }
-
-        transform.eulerAngles = new Vector3(0, 0, rb.velocity.y * rotateScale);
     }
 
     void OnCollisionEnter2D(Collision2D other)
